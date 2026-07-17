@@ -52,9 +52,6 @@ for (y in years_to_fetch) {
 #' BDSP — number of bedrooms — also household-level.
 #' TEN — tenure (own/rent) — household-level
 
-# look at variable values:
-vars <- pums_variables |>
-  filter(year == 2009, survey == "acs5")
 vars <- pums_variables |>
   filter(year == 2024, survey == "acs5")
 
@@ -157,17 +154,13 @@ for (y in years_to_fetch) {
       n_ppl = as.numeric(as.character(n_ppl)),
       n_brs = as.numeric(as.character(n_brs))
     ) %>%
-    # mutate(
-    #   n_ppl = if_else(n_ppl >=5, 5, n_ppl),
-    #   n_brs = if_else(n_brs >=5, 5, n_brs)
-    # ) %>%
     group_by(n_ppl, n_brs) %>%
     summarise(Freq = sum(Freq), .groups = "drop") %>%
     ungroup()
 }
 
-saveRDS(df_list, file = "data/my_list.rds")
-saveRDS(df_list, file = "housing-demand-app/my_list.rds")
+# saveRDS(df_list, file = "data/my_list.rds")
+# TODO: delete this line?
 
  
 df_all_wide <- imap_dfr(df_list, ~ mutate(.x, year = .y)) %>%
@@ -205,7 +198,7 @@ temp <-
   geom_bar(stat="identity", fill='steelblue') +
   scale_y_continuous(labels = comma) +
   scale_x_discrete(labels = c("5" = "5+")) +
-  ylab("") + xlab("Household size") + ggtitle("Number of households by HH size") +
+  ylab("") + xlab("Household size") + ggtitle("Number of households by HH size, 2024 5-year ACS") +
   theme_minimal() 
 
 ggsave("images/hh_size_hist.png", plot = temp, width = 7, height = 4, dpi = 300)
@@ -218,7 +211,7 @@ temp <-
   geom_text(aes(label = comma(Freq)), size = 3) +
   scale_fill_gradient(low = "white", high = "steelblue", labels = comma) +
   labs(y = "Bedrooms", x = "Household size", fill = "Number of\nHouseholds",
-       title = "Number of DC households by HH size and dwelling bedroom count") +
+       title = "Number of DC households by HH size and dwelling bedroom count\n2024 5-year ACS") +
   scale_x_discrete(labels = c("5" = "5+")) +
   scale_y_discrete(labels = c("5" = "5+")) +
   guides(fill = "none") + # Removes the fill legend
@@ -239,7 +232,7 @@ temp <-
   geom_text(aes(label = paste0(round(100*pct), "%"), size = 3)) +
   scale_fill_gradient(low = "white", high = "steelblue") +
   labs(y = "Bedrooms", x = "Household size", fill = "Number of\nHouseholds",
-       title = "Percent of households of each HH size in each size dwelling unit") +
+       title = "Percent of households of each HH size in each size dwelling unit\n2024 5-year ACS") +
   scale_x_discrete(labels = c("5" = "5+")) +
   scale_y_discrete(labels = c("5" = "5+")) +
   guides(fill = "none", label="none", size="none") + # Removes the fill legend
@@ -253,7 +246,7 @@ ggsave("images/heatmap_pcts.png", plot = temp, width = 7, height = 4, dpi = 300)
 
 p_age <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = AGEP, weight = PWGTP)) +
   geom_histogram(binwidth = 5, boundary = 0, fill = "steelblue") +
-  labs(title = "Age", x = "Age", y = "Weighted count")
+  labs(title = "Age", x = "", y = "")
 
 hh_ten <- ggplot(pums_hh, 
                  aes(x = TEN_label, weight = WGTP)) +
@@ -312,7 +305,12 @@ hh_bld <- hh_bld + scale_y_continuous(labels = comma)
 hh_bds <- hh_bds + scale_y_continuous(labels = comma)
 
 desc_chart <- p_age / (p_ten + p_bld + p_bds) + (hh_ten + hh_bld + hh_bds) +
-  plot_annotation(caption = "Final row of charts shows data weighted by household; other charts are weighted by person. Source: 2024 5-year ACS PUMS.")
+  plot_annotation(caption = "Final row of charts shows data weighted by household; other charts are weighted by person.\nCharts show people in households only; no group quarters residents.\nSource: 2024 5-year ACS PUMS.",
+                  title = "Descriptive statistics, 2024 5-year ACS",
+                  theme = theme(
+                    plot.caption = element_text(hjust = 0)
+                    )
+                  ) 
 
 ggsave("images/descriptive_chart.png", plot = desc_chart, width = 10, height = 9, dpi = 300)
 
@@ -375,7 +373,7 @@ ggsave("images/all_years_hhsize_pct_chart.png", plot = temp, width = 10, height 
 
 df_all_long_pct <- group_high_vals(df_all_long, 5, 5) %>%
   group_by(year, n_brs_label) %>%
-  summarize(Freq = sum(Freq)) %>%
+  summarise(Freq = sum(Freq)) %>%
   ungroup() %>%
   group_by(year) %>%
   mutate(pct = Freq / sum(Freq)) %>%
@@ -399,7 +397,7 @@ ggsave("images/brs_pct_chart.png", plot = temp, width = 10, height = 6, dpi = 30
 
 df_all_long_pct <- group_high_vals(df_all_long, 5, 5) %>%
   group_by(year, n_ppl_label) %>%
-  summarize(Freq = sum(Freq)) %>%
+  summarise(Freq = sum(Freq)) %>%
   ungroup() %>%
   group_by(year) %>%
   mutate(pct = Freq / sum(Freq)) %>%

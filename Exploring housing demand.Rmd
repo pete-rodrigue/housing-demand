@@ -1,0 +1,96 @@
+---
+title: "Exploring housing demand"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this memo:
+
+* Descriptive statistics about DC's current & historic population
+* Population extrapolations to 2030
+* Next steps
+
+## DC's historical population
+
+Until 1950, DC's population grew steadily each decade. The expansion of the federal government during the Civil War and both World Wars led to population growth spurts. (The biggest decade-on-decade growth came during the 1850s and 60s, as the American bureaucracy was born, and formerly enslaved people fled neighboring southern states).
+
+After 1950, the District's population sank, as tens of thousands of mostly-white residents relocated to the suburbs. 
+
+Starting around 2000, this decades-long downward trend reversed, although the COVID pandemic knocked back DC's population growth again, at least temporarily. 
+
+
+![](images/historic_pop.png)
+
+<br>
+
+## Extrapolations to 2030
+
+The chart below shows several potential future population trends:
+
+* The highest-growth scenario: Janeese Lewis-George's 72,000 housing unit goal achieved by 2030, and ~all of those units are filled.
+* A high-growth scenario: Population grows at average annual rate observed during 2012-2020 period.
+* A trend growth scenario: Population increases linearly after 2023-2024.
+* A pessimistic scenario: Population declines at 0.1%/year.
+
+![](images/projections.png)
+
+
+
+The chart below shows the estimated number of each type of housing unit that are associated with each scenario.
+
+<br>
+
+![](images/projections_br_counts.png)
+
+<br>
+
+
+## Current (2024 5-year ACS) statistics
+
+
+The charts below show DC's demographic and housing characteristics in the 2024 5-year ACS. The top two rows of charts are weighted by person; the last row is weighted by household. Group quarters residents are not shown (their inclusion doesn't change the charts much).
+
+![](images/descriptive_chart.png)
+
+<br>
+
+A plurality of DC households are comprised of one person. 
+
+![](images/hh_size_hist.png)
+
+
+![](images/heatmap_pcts.png)
+
+<br>
+
+Single-person households have grown as a share of total households over time. There are slightly fewer large households in recent years than there were around 2010. Those large households are now more likely to live in smaller units. Studio apartments are becoming more common.
+
+![](images/all_years_hhsize_chart.png)
+
+
+![](images/all_years_hhsize_pct_chart.png)
+![](images/brs_pct_chart.png)
+
+
+![](images/hh_pct_chart.png)
+
+
+
+
+
+
+
+
+## Next steps
+
+
+* Draft specific questions we want to be able to answer.
+* (Potentially) replicate [this Brookings paper](https://www.brookings.edu/articles/make-it-count-measuring-our-housing-supply-shortage/) that uses the
+[Kitagawa–Oaxaca–Blinder decomposition](https://en.wikipedia.org/wiki/Kitagawa%E2%80%93Oaxaca%E2%80%93Blinder_decomposition) to estimate a national housing supply shortage, but for DC specifically.
+
+ 
