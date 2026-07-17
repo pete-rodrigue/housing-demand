@@ -304,8 +304,8 @@ hh_ten <- hh_ten + scale_y_continuous(labels = comma)
 hh_bld <- hh_bld + scale_y_continuous(labels = comma)
 hh_bds <- hh_bds + scale_y_continuous(labels = comma)
 
-desc_chart <- p_age / (p_ten + p_bld + p_bds) + (hh_ten + hh_bld + hh_bds) +
-  plot_annotation(caption = "Final row of charts shows data weighted by household; other charts are weighted by person.\nCharts show people in households only; no group quarters residents.\nSource: 2024 5-year ACS PUMS.",
+desc_chart <- p_age / (p_ten + p_bld + p_bds) + 
+  plot_annotation(caption = "Charts show people in households only (no group quarters residents).\nSource: 2024 5-year ACS PUMS.",
                   title = "Descriptive statistics, 2024 5-year ACS",
                   theme = theme(
                     plot.caption = element_text(hjust = 0)
@@ -338,13 +338,13 @@ group_high_vals <- function(df, n_ppl_cap, n_brs_cap) {
 
 
 temp <-
-  ggplot(group_high_vals(df_all_long, 5, 5), aes(x = year, y = Freq, fill = n_brs_label)) +
-  geom_col() +
+  ggplot(group_high_vals(df_all_long, 5, 5), aes(x = year, y = Freq)) +
+  geom_col(fill='steelblue') +
   facet_wrap(~ n_ppl_label, nrow = 1) +
   scale_y_continuous(labels = comma) +
   scale_fill_viridis_d(name = "Bedrooms") +
   labs(x = "Household size, Year", y = "Number of households",
-       title = "DC households by size, bedroom count, 2012–2024") +
+       title = "DC households by size, 2012–2024") +
   theme_minimal()
 
 ggsave("images/all_years_hhsize_chart.png", plot = temp, width = 10, height = 6, dpi = 300)

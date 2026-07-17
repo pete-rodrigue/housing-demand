@@ -50,7 +50,7 @@ The chart below shows the estimated number of each type of housing unit that are
 <br>
 
 
-## Current (2024 5-year ACS) statistics
+## Household size and dwelling unit statistics
 
 
 The charts below show DC's demographic and housing characteristics in the 2024 5-year ACS. The top two rows of charts are weighted by person; the last row is weighted by household. Group quarters residents are not shown (their inclusion doesn't change the charts much).
@@ -62,22 +62,37 @@ The charts below show DC's demographic and housing characteristics in the 2024 5
 A plurality of DC households are comprised of one person. 
 
 ![](images/hh_size_hist.png)
+<br>
 
+One-person households have grown slightly as a share of total households over time. Larger households have shrunk as a share of total households. 
+
+![](images/hh_pct_chart.png)
+
+<br>
+
+Below are the raw counts by household size.
+
+![](images/all_years_hhsize_chart.png)
+
+<br>
+
+Studios as a share of total units have grown over time.
+
+![](images/brs_pct_chart.png)
+
+<br>
+
+Below is a cross-tabulation of household size and unit size in the 2024 5-year ACS data.
 
 ![](images/heatmap_pcts.png)
 
 <br>
 
-Single-person households have grown as a share of total households over time. There are slightly fewer large households in recent years than there were around 2010. Those large households are now more likely to live in smaller units. Studio apartments are becoming more common.
-
-![](images/all_years_hhsize_chart.png)
+Large households are now more likely to live in smaller units.
 
 
 ![](images/all_years_hhsize_pct_chart.png)
-![](images/brs_pct_chart.png)
 
-
-![](images/hh_pct_chart.png)
 
 
 
