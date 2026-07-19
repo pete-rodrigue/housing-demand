@@ -49,6 +49,12 @@ The chart below shows the estimated number of each type of housing unit that are
 
 <br>
 
+### Filtering estimate
+
+* As of the 2018-2022 5-year ACS, there were ~14,700 DC renter households between 50% and 100% of AMI who were rent-burdened (paying more than 30% of their income in rent).
+* [Mast (2023)](https://research.upjohn.org/cgi/viewcontent.cgi?article=1012&context=up_policybriefs) finds that constructing 100 new market rate units leads 45-70 households in cheaper units to leave those units and start renting in the new units. This opens up those 45-70 cheaper units for more moderate-income people to rent. 
+* To create moving chains that would allow DC households at 50-100% AMI to move to cheaper units, you might need to build __21,000–33,000__ new market-rate units. 
+* Renters below 50% AMI wouldn't benefit as much, especially in the short run, because their incomes are low enough that more market-rate housing doesn't necessarily create moving-chain opportunities for them.
 
 ## Household size and dwelling unit statistics
 
@@ -105,6 +111,7 @@ Large households are now more likely to live in smaller units.
 
 
 * Draft specific questions we want to be able to answer.
+* Use the 2016 reduction in parking minimums to estimate housing demand.
 * (Potentially) replicate [this Brookings paper](https://www.brookings.edu/articles/make-it-count-measuring-our-housing-supply-shortage/) that uses the
 [Kitagawa–Oaxaca–Blinder decomposition](https://en.wikipedia.org/wiki/Kitagawa%E2%80%93Oaxaca%E2%80%93Blinder_decomposition) to estimate a national housing supply shortage, but for DC specifically.
 
