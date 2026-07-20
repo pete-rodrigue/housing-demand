@@ -87,7 +87,9 @@ One-person households have grown slightly as a share of total households over ti
 ## Existing research
 
 
-[COG](https://www.mwcog.org/documents/2019/09/10/the-future-of-housing-in-greater-washington/) (2019): **~36,000 units needed to house the projected number of workers the COG expects the region will "need" in 2030.** 
+### [COG](https://www.mwcog.org/documents/2019/09/10/the-future-of-housing-in-greater-washington/) (2019)
+
+**DMV-wide, ~320,000** units needed to house the projected number of workers the COG expects the region will "need" in 2030.
 
 Here's their math:
 
@@ -97,30 +99,57 @@ Here's their math:
 * COG says that the DMV will have ~2.375 million households by 2030 under their baseline scenario. 
 * 2,450,000 - 2,375,000 = 75,000 household / housing unit shortfall.
 * COG says there are 2,130,000 housing units now; to reach the 2,450,000 target, the DMV needs to build a total of 320,000 housing units.
-* DC's share of that is roughly 36,000 units (this is partly where Mayor Bowser's 36k housing unit goal came from).
 
-The people at COG are smarter than me, so maybe this estimate is spot on, but it feels a little dicey to project housing need in a decade like this. It's also sensitive to your assumptions: If you change the target jobs/households ratio to 1.5, the shortfall doubles; change the ratio to 1.6 and the method would suggest we have a housing surplus. Same goes for COG's jobs & housing projections.
+The people at COG are smarter than me, so maybe this estimate is spot on, but it feels a little dicey to project housing need in a decade like this. It's also sensitive to your assumptions: If you change the target jobs/households ratio to 1.5, the shortfall doubles; change the ratio to 1.6 and the method would suggest we have a housing surplus. Same goes for COG's jobs & housing projections. (The National Association of Realtors actually does something similar to COG, but using a ratio of 2, and, of course, find that [the DMV has no housing shortage](https://www.nar.realtor/research-and-statistics/housing-statistics/housing-shortage-tracker).)
 
 Maybe they just needed a number they could all agree on. In which case: makes sense! But projecting the number of jobs, housing, and housing demand 10 years from now feels a little quixotic. Many of these estimates feel this way. I understand that COG is a transportation planning organization, so they may need some rough estimate of these trends for their own purposes.
 
 Final note: the COG isn't maximizing welfare or productivity in this paper. They're not estimating how many people would like to live in the DMV, if given the opportunity. They're estimating the number of houses needed in the DMV to reduce in-commuting from surrounding counties.
 
   
-[Freddie Mac](https://www.freddiemac.com/research/insight/20200227-the-housing-supply-shortage) (2020): **DC ~34,000 units short**
+## [Freddie Mac](https://www.freddiemac.com/research/insight/20200227-the-housing-supply-shortage) (2020)
 
-[AEI](https://heat.aeihousingcenter.org/toolkit/housing_shortage) (2025): **32,149 units short**
+DC **~34,000** units short
+
+* Calculates housing demand as $\frac{h}{1-v}$, where 
+  * $h$ is the number of target households, or, "the number of unconstrained households that would have formed if households did not face any constraints related to housing costs."
+  * $v$ is the "long-term vacancy rate."  They say $v$ is 13%, based on data from 1970-2000 (they are claiming that housing supply was not constrained before 2000; as another paper discusses below, this is not exactly true). 
+* Then they compare that demand to actual housing supply in the states and DC, accounting for interstate migration.
+* They find DC's housing shortage is almost 10% of its existing supply, or about 34,000 units.
+
+[AEI](https://heat.aeihousingcenter.org/toolkit/housing_shortage) (2025) 
+
+DC **32,149** units short
 
 * AEI basically takes an estimate of the national housing unit shortage (6 million homes, in the higher half of these national estimates, many of which hover around 4 million)
 * And they allocate out shortages to each state based on that state's $\frac{home price}{local income}$ ratio. All else equal, this will make DC's housing shortage look less severe, because DC, while having high rents, also has very high median income (even if many people in absolute terms live on very modest incomes in the District).
 * This gives them a housing shortage in DC of ~34,000 units.
 
-[Up For Growth](https://upforgrowth.org/apply-the-vision/housing-underproduction-reports/) (2025): **~15,000 units short**
+### [Up For Growth](https://upforgrowth.org/apply-the-vision/housing-underproduction-reports/) (2025)
 
-[Kevin Corinth & Hugo Dante](https://docs.iza.org/dp15447.pdf) (2022): **~170,000 units short**
+DC **~16,600** units short
 
-These authors estimate how many units would be built in the "absence of supply constraints and the actual number of homes." In other words, how many homes people would build, before DC rents started to come in line with rents in alternative places to live, and the price incentive to build more homes petered out because the market reached equilibrium. This is closer to what economists hear when someone says "there's a housing shortage."
+They use this formula:
 
-[Moodys](https://www.policymap.com/data/moodys-housing-shortfall?) (2025): This project estimates housing shortages by Census tract. I'm trying to get access. 
+$Housing Underproduction = (Households + MissingHouseholds)*1.05 - (TotalHousingUnits - 2ndHomes - UninhabitableHomes)$
+
+Where 1.05 represents the 5% target vacancy rate.
+
+This approach provides the lowest end estimate. A big reason why is because it doesn't account for equilibrium effects. The "missing households" term accounts for households in DC that are living in overcrowded conditions, forming 1 household when the inhabitants would rather be 3 households. But it doesn't account for households that just live in PG or MoCo counties, rather than DC, because DC rents are higher. This is obviously a large portion of the true demand to live in DC.
+
+### [Kevin Corinth & Hugo Dante](https://docs.iza.org/dp15447.pdf) (2022)
+
+DC **~116,212** units short
+
+These authors estimate how many units would be built in the "absence of supply constraints and the actual number of homes." In other words, how many homes people would build, if the economic rent associated with providing housing approached zero? This is closer to what economists hear when someone says "there's a housing shortage." 
+
+They find DC has a 116,212 unit shortage. This is likely an over-estimate, because it doesn't account for equilibrium effects. For example: if Arlington suddenly built a bunch more housing units, more people would move to and live in Arlington. This would ease housing demand in DC proper and slow rent increases. But the authors calculate separate housing shortages by state, so they don't capture this equilibrium dynamic. It might make sense to think of this estimate as an upper bound on how much market rate housing would get built if costs fell to the lower end of the national average. 
+
+(On the other hand, agglomeration effects might make a more populous DC more attractive to people looking to move. Which would increase demand.)
+
+### [Moodys](https://www.policymap.com/data/moodys-housing-shortfall?) (2025)
+
+This project estimates housing shortages by Census tract. I'm trying to get access. 
 
 
 ## Next steps
@@ -141,12 +170,17 @@ These kinds of shocks are hard to come by. It's not clear that DC has had any di
 
 
 
+This also raises normative questions. The true economic "demand for housing in DC" is likely something closer to the Corinth & Dante estimate: over 100,000 units. That is how many people would live in DC if the economic rents associated with being a developer, landlord, etc. were ~zero. But meeting that demand would mean DC would get much denser. It's not clear that existing DC residents want that, and they vote for the people that make these decisions.
+
+So we're left with a question: not "what does it mean to meet the demand for housing in DC" but __"How much of the demand for housing in DC do we want to meet?"__
+
+
 Next steps:
 
 * Clarify specific research questions.
-* Use the 2016 reduction in parking minimums to estimate housing demand.
 * Replicate [this Brookings paper](https://www.brookings.edu/articles/make-it-count-measuring-our-housing-supply-shortage/) that uses the
 [Kitagawa–Oaxaca–Blinder decomposition](https://en.wikipedia.org/wiki/Kitagawa%E2%80%93Oaxaca%E2%80%93Blinder_decomposition) to estimate a national housing supply shortage, but for DC specifically.
+* do some what ifs with permitting costs?
 
 
 
