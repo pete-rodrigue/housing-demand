@@ -78,18 +78,21 @@ library(Hmisc); library(tidyverse); library(dplyr); library(zoo); library(ipumsr
 dc_historical_pop <- readRDS("data/historical_population.rds")
 
 
-a <- ggplot(dc_historical_pop, aes(x=Year, y=Population, group=1)) +
+a <- ggplot(dc_historical_pop, aes(x=Year, y=Population / 1000, group=1)) +
   geom_point() + geom_line() +
   theme_minimal() +
   scale_y_continuous(labels = scales::label_comma()) +
-  labs(y="", x="", title="DC population")
+  labs(y="", x="", title="DC population (thousands)")
 
 b <- ggplot(dc_historical_pop, aes(x=Year, y=`Percent change`, group=1)) +
   geom_point() + geom_line() +
   geom_hline(aes(yintercept=0), color="grey") +
   theme_minimal() +
   scale_y_continuous(labels = scales::label_comma()) +
-  labs(y="", x="", title="DC population, % growth between subsequent census snapshots", caption="Final dot shows 2024 5-year ACS data. Source: IPUMS NHGIS, Census Bureau")
+  labs(y="", x="", 
+       title="DC population, % growth between subsequent census snapshots", 
+       caption="Final dot shows 2024 5-year ACS data. Source: IPUMS NHGIS, Census Bureau") +
+  theme(plot.caption = element_text(hjust = 0))
 
 a / b
 
@@ -173,21 +176,21 @@ lwd = .8
 
 a <- 
   ggplot() + 
-  geom_line(data = pop_w_gq, aes(x=YEAR, y=n_ppl), linewidth=lwd) +
+  geom_line(data = pop_w_gq, aes(x=YEAR, y=n_ppl / 1000), linewidth=lwd) +
   # geom_line(data=dc_historical_pop, aes(x = Year, y=Population)) +
-  geom_line(data=what_ifs_pops, aes(x=YEAR, y=low_proj), linetype = "dashed", color=pal[4], linewidth=lwd) +
-  geom_line(data=what_ifs_pops, aes(x=YEAR, y=pop_proj), linetype = "dashed", color=pal[3], linewidth=lwd) +
-  geom_line(data=what_ifs_pops, aes(x=YEAR, y=hig_proj), linetype = "dashed", color=pal[2], linewidth=lwd) +
-  geom_line(data=what_ifs_pops, aes(x=YEAR, y=jlg_goal), linetype = "dashed", color=pal[1], linewidth=lwd) +
+  geom_line(data=what_ifs_pops, aes(x=YEAR, y=low_proj / 1000), linetype = "dashed", color=pal[4], linewidth=lwd) +
+  geom_line(data=what_ifs_pops, aes(x=YEAR, y=pop_proj / 1000), linetype = "dashed", color=pal[3], linewidth=lwd) +
+  geom_line(data=what_ifs_pops, aes(x=YEAR, y=hig_proj / 1000), linetype = "dashed", color=pal[2], linewidth=lwd) +
+  geom_line(data=what_ifs_pops, aes(x=YEAR, y=jlg_goal / 1000), linetype = "dashed", color=pal[1], linewidth=lwd) +
   theme_minimal() +
-  labs(x="", y="Number of residents", title="DC population (5-year ACS waves)",
+  labs(x="", y="Number of residents", title="DC population (thousands)",
        caption = paste0("Dashed lines, from the top down:\n",
                         "Janeese Lewis-George's 72,000 housing unit goal achieved by end of period (Applies 2024 ratio of housing units to population).\n",
                         "Population grows at average annual rate observed during 2012-2020 period.\n",
                         "Population increases linearly after 2023-2024.\n",
                         "Population declines at 0.1%/year.")) +
-  scale_x_continuous(breaks = seq(2012, 2030, by = 1)) +
-  scale_y_continuous(breaks = seq(600e3, 830e3, by = 20e3), labels = scales::label_comma()) +
+  scale_x_continuous(breaks = seq(2012, 2030, by = 2)) +
+  scale_y_continuous(breaks = seq(600, 830, by = 20), labels = scales::label_comma()) +
   theme(
     # Left-align the text layout (0 = left, 0.5 = center, 1 = right)
     plot.caption = element_text(hjust = 0)
@@ -197,7 +200,7 @@ a <-
   )
 
 
-lwd = .5
+lwd = .8
 inset_plot <-
   ggplot() + 
   geom_line(data=dc_historical_pop, aes(x = Year, y=Population)) +
@@ -276,12 +279,17 @@ br_counts_plot <-
                   )
   ) %>%
   ggplot() +
-  geom_bar(aes(x=n_brs, y=value, fill=name), stat="identity", position="dodge") +
+  geom_bar(aes(x=n_brs, y=value / 1000, fill=name), stat="identity", position="dodge") +
   theme_minimal() +
   scale_x_continuous(breaks = seq(0, 5, by = 1)) +
   scale_y_continuous(labels = scales::label_comma()) +
-  labs(x="Number of bedrooms", y="Count", fill="Scenario", title="Estimated bedroom counts by scenario")
+  scale_fill_manual(values =   rev(c("#440154FF", "#3B528BFF", "#21908CFF","darkgrey", "#5DC863FF"))) +
+  labs(x="Number of bedrooms", y="Count (thousands)", fill="Scenario", 
+       title="Estimated bedroom counts by scenario",
+       caption="Chart based on data from occupied units.\nSource: 2024 5-year ACS") +
+  theme(plot.caption = element_text(hjust = 0))
 
+br_counts_plot
 
 ggsave(filename = "images/projections_br_counts.png", 
        plot = br_counts_plot, 

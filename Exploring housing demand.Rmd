@@ -45,7 +45,7 @@ The chart below shows the estimated number of each type of housing unit that are
 
 <br>
 
-![](images/projections_br_counts.png)
+![](images/projections_br_counts.png) 
 
 <br>
 
@@ -59,60 +59,119 @@ The chart below shows the estimated number of each type of housing unit that are
 ## Household size and dwelling unit statistics
 
 
-The charts below show DC's demographic and housing characteristics in the 2024 5-year ACS. The top two rows of charts are weighted by person; the last row is weighted by household. Group quarters residents are not shown (their inclusion doesn't change the charts much).
+The charts below show DC's demographic and housing characteristics in the 2024 5-year ACS, weighted by individual person. Group quarters residents are not shown (their inclusion doesn't change the charts much).
+
+* A plurality of DC households are comprised of one person. 
+* Most DC residents rent.
+* A plurality of DC residents live in row houses and duplexes.
+
+![](images/hh_size_hist.png)
+
+<br>
 
 ![](images/descriptive_chart.png)
 
-<br>
-
-A plurality of DC households are comprised of one person. 
-
-![](images/hh_size_hist.png)
-<br>
-
-One-person households have grown slightly as a share of total households over time. Larger households have shrunk as a share of total households. 
-
-![](images/hh_pct_chart.png)
 
 <br>
 
-Below are the raw counts by household size.
+
+<br>
+
+One-person households have grown slightly as a share of total households over time. Larger households have shrunk as a share of total households. Perhaps unsurprisingly, studios as a share of total units have grown over time; large households are also now more likely to live in smaller units (charts in the appendix).
 
 ![](images/all_years_hhsize_chart.png)
 
 <br>
 
-Studios as a share of total units have grown over time.
 
-![](images/brs_pct_chart.png)
-
-<br>
-
-Below is a cross-tabulation of household size and unit size in the 2024 5-year ACS data.
-
-![](images/heatmap_pcts.png)
-
-<br>
-
-Large households are now more likely to live in smaller units.
+## Existing research
 
 
-![](images/all_years_hhsize_pct_chart.png)
+[COG](https://www.mwcog.org/documents/2019/09/10/the-future-of-housing-in-greater-washington/) (2019): **~36,000 units needed to house the projected number of workers the COG expects the region will "need" in 2030.** 
 
+Here's their math:
 
+* COG says the DMV will have 3.774 million jobs by 2030.
+* COG says that the ideal "jobs per household ratio" is 1.54.
+* $\frac{3,774,000 jobs}{1.54 jobs / household} =$ 2,450,000 households "needed" 
+* COG says that the DMV will have ~2.375 million households by 2030 under their baseline scenario. 
+* 2,450,000 - 2,375,000 = 75,000 household / housing unit shortfall.
+* COG says there are 2,130,000 housing units now; to reach the 2,450,000 target, the DMV needs to build a total of 320,000 housing units.
+* DC's share of that is roughly 36,000 units (this is partly where Mayor Bowser's 36k housing unit goal came from).
 
+The people at COG are smarter than me, so maybe this estimate is spot on, but it feels a little dicey to project housing need in a decade like this. It's also sensitive to your assumptions: If you change the target jobs/households ratio to 1.5, the shortfall doubles; change the ratio to 1.6 and the method would suggest we have a housing surplus. Same goes for COG's jobs & housing projections.
 
+Maybe they just needed a number they could all agree on. In which case: makes sense! But projecting the number of jobs, housing, and housing demand 10 years from now feels a little quixotic. Many of these estimates feel this way. I understand that COG is a transportation planning organization, so they may need some rough estimate of these trends for their own purposes.
 
+Final note: the COG isn't maximizing welfare or productivity in this paper. They're not estimating how many people would like to live in the DMV, if given the opportunity. They're estimating the number of houses needed in the DMV to reduce in-commuting from surrounding counties.
 
+  
+[Freddie Mac](https://www.freddiemac.com/research/insight/20200227-the-housing-supply-shortage) (2020): **DC ~34,000 units short**
 
+[AEI](https://heat.aeihousingcenter.org/toolkit/housing_shortage) (2025): **32,149 units short**
+
+* AEI basically takes an estimate of the national housing unit shortage (6 million homes, in the higher half of these national estimates, many of which hover around 4 million)
+* And they allocate out shortages to each state based on that state's $\frac{home price}{local income}$ ratio. All else equal, this will make DC's housing shortage look less severe, because DC, while having high rents, also has very high median income (even if many people in absolute terms live on very modest incomes in the District).
+* This gives them a housing shortage in DC of ~34,000 units.
+
+[Up For Growth](https://upforgrowth.org/apply-the-vision/housing-underproduction-reports/) (2025): **~15,000 units short**
+
+[Kevin Corinth & Hugo Dante](https://docs.iza.org/dp15447.pdf) (2022): **~170,000 units short**
+
+These authors estimate how many units would be built in the "absence of supply constraints and the actual number of homes." In other words, how many homes people would build, before DC rents started to come in line with rents in alternative places to live, and the price incentive to build more homes petered out because the market reached equilibrium. This is closer to what economists hear when someone says "there's a housing shortage."
+
+[Moodys](https://www.policymap.com/data/moodys-housing-shortfall?) (2025): This project estimates housing shortages by Census tract. I'm trying to get access. 
 
 
 ## Next steps
 
+The main challenge with estimating housing demand is that we don't directly observe demand. We see how many people choose to live in DC, and what they pay to rent or buy a home. But those decisions are influenced by the amount of housing available.
 
-* Draft specific questions we want to be able to answer.
+In other words, we don't see this complete picture:
+
+![](images/supply_and_demand_curves.png) 
+
+We only see a series of equilibrium points, where those two curves meet, over time.
+
+To trace out the demand curve, we really need an exogenous shock that shifts supply, but does not influence demand:
+
+![](images/supply_and_demand_curves_2.png) 
+
+These kinds of shocks are hard to come by. It's not clear that DC has had any discrete jumps in housing supply during a period in which there were not confounding changes in demand. 
+
+
+
+Next steps:
+
+* Clarify specific research questions.
 * Use the 2016 reduction in parking minimums to estimate housing demand.
-* (Potentially) replicate [this Brookings paper](https://www.brookings.edu/articles/make-it-count-measuring-our-housing-supply-shortage/) that uses the
+* Replicate [this Brookings paper](https://www.brookings.edu/articles/make-it-count-measuring-our-housing-supply-shortage/) that uses the
 [Kitagawa–Oaxaca–Blinder decomposition](https://en.wikipedia.org/wiki/Kitagawa%E2%80%93Oaxaca%E2%80%93Blinder_decomposition) to estimate a national housing supply shortage, but for DC specifically.
+
+
+
+## Appendix charts
+
+<details>
+  <summary>Click to show/hide additional charts</summary>
+
+Below is a cross-tabulation of household size and unit size in the 2024 5-year ACS data. 
+
+![](images/heatmap_pcts.png) 
+
+![](images/hh_pct_chart.png)
+
+![](images/all_years_hhsize_pct_chart.png)
+
+</details>
+
+
+
+<br>
+<br>
+<br>
+
+
+
 
  

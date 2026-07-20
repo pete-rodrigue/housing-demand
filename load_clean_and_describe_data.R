@@ -52,12 +52,12 @@ for (y in years_to_fetch) {
 #' BDSP — number of bedrooms — also household-level.
 #' TEN — tenure (own/rent) — household-level
 
-vars <- pums_variables |>
-  filter(year == 2024, survey == "acs5")
-
-for (v in c("WGTP", "PWGTP", my_vars)) {
-  print(vars |> filter(var_code == v) |> distinct(var_code, var_label, val_min, val_max, val_label))
-}
+# vars <- pums_variables |>
+#   filter(year == 2024, survey == "acs5")
+# 
+# for (v in c("WGTP", "PWGTP", my_vars)) {
+#   print(vars |> filter(var_code == v) |> distinct(var_code, var_label, val_min, val_max, val_label))
+# }
 
 
 
@@ -159,10 +159,7 @@ for (y in years_to_fetch) {
     ungroup()
 }
 
-# saveRDS(df_list, file = "data/my_list.rds")
-# TODO: delete this line?
 
- 
 df_all_wide <- imap_dfr(df_list, ~ mutate(.x, year = .y)) %>%
   pivot_wider(id_cols = c(n_ppl, n_brs), names_from = year,
               values_from = Freq, names_prefix = "Freq_")
@@ -193,30 +190,34 @@ temp <-
          group_by(n_ppl) %>%
          summarise(Freq = sum(Freq, na.rm=T)) %>%
          ungroup(), 
-       aes(x=factor(n_ppl), y=Freq)
+       aes(x=factor(n_ppl), y=Freq / 1000)
        ) + 
   geom_bar(stat="identity", fill='steelblue') +
   scale_y_continuous(labels = comma) +
   scale_x_discrete(labels = c("5" = "5+")) +
-  ylab("") + xlab("Household size") + ggtitle("Number of households by HH size, 2024 5-year ACS") +
-  theme_minimal() 
+  ylab("") + xlab("Household size") + 
+  labs(title="Number of households by HH size (thousands)",
+       caption="Source: 2024 5-year ACS") +
+  theme_minimal() +
+  theme(plot.caption = element_text(hjust = 0))
 
 ggsave("images/hh_size_hist.png", plot = temp, width = 7, height = 4, dpi = 300)
 
 
 
 temp <-
-  ggplot(df_xt, aes(y = factor(n_brs), x = factor(n_ppl), fill = Freq)) +
+  ggplot(df_xt, aes(y = factor(n_brs), x = factor(n_ppl), fill = Freq / 1000)) +
   geom_tile(color = "white") +
-  geom_text(aes(label = comma(Freq)), size = 3) +
+  geom_text(aes(label = comma(round(Freq / 1000, 0))), size = 3) +
   scale_fill_gradient(low = "white", high = "steelblue", labels = comma) +
   labs(y = "Bedrooms", x = "Household size", fill = "Number of\nHouseholds",
-       title = "Number of DC households by HH size and dwelling bedroom count\n2024 5-year ACS") +
+       title = "Number of DC households by HH size and dwelling bedroom count (thousands)") +
   scale_x_discrete(labels = c("5" = "5+")) +
   scale_y_discrete(labels = c("5" = "5+")) +
   guides(fill = "none") + # Removes the fill legend
   theme_minimal() +
-  labs(caption = "Note: Each cell shows the number of households of that size, living in a dwelling with that number of bedrooms.")
+  labs(caption = "Each cell shows the number of households of that size, living in a dwelling with that number of bedrooms.\nValues are rounded to the nearest 1,000.\nSource: 2024 5-year ACS") +
+  theme(plot.caption = element_text(hjust = 0))
 
 ggsave("images/heatmap_counts.png", plot = temp, width = 7, height = 4, dpi = 300)
 
@@ -232,87 +233,88 @@ temp <-
   geom_text(aes(label = paste0(round(100*pct), "%"), size = 3)) +
   scale_fill_gradient(low = "white", high = "steelblue") +
   labs(y = "Bedrooms", x = "Household size", fill = "Number of\nHouseholds",
-       title = "Percent of households of each HH size in each size dwelling unit\n2024 5-year ACS") +
+       title = "Percent of households of each HH size in each size dwelling unit") +
   scale_x_discrete(labels = c("5" = "5+")) +
   scale_y_discrete(labels = c("5" = "5+")) +
   guides(fill = "none", label="none", size="none") + # Removes the fill legend
   theme_minimal() +
-  labs(caption = "Note: columns sum to ~100%. So a cell value of 46% in column 1 means that 46% of 1-person HH live in 1BR units.")
+  labs(caption = "Columns sum to ~100%. So a cell value of 46% in column 1 means that 46% of 1-person HH live in 1BR units.\nSource: 2024 5-year ACS") +
+  theme(plot.caption = element_text(hjust = 0))
 
 ggsave("images/heatmap_pcts.png", plot = temp, width = 7, height = 4, dpi = 300)
 
 
 
 
-p_age <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = AGEP, weight = PWGTP)) +
-  geom_histogram(binwidth = 5, boundary = 0, fill = "steelblue") +
-  labs(title = "Age", x = "", y = "")
+# p_age <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = AGEP, weight = PWGTP)) +
+#   geom_histogram(binwidth = 5, boundary = 0, fill = "steelblue") +
+#   labs(title = "Age", x = "", y = "")
 
-hh_ten <- ggplot(pums_hh, 
-                 aes(x = TEN_label, weight = WGTP)) +
-  geom_bar(fill = "steelblue") +
-  coord_flip() +
-  scale_x_discrete(
-    labels = c("Owned with mortgage or loan (include home equity loans)" = "Owned with loan",
-               "Occupied without payment of rent" = "Occ. w/o rent payment")
-  ) +
-  labs(title = "Tenure", x = NULL, y = "Weighted count")
-
-hh_bld <- ggplot(pums_hh, aes(x = BLD_label, weight = WGTP)) +
-  geom_bar(fill = "steelblue") +
-  coord_flip() +
-  labs(title = "Units in structure", x = NULL, y = "Weighted count") +
-  scale_x_discrete(
-    labels = c("Attached single-family (row house)" = "Attached single-family")
-  )
-
-hh_bds <- ggplot(pums_hh, aes(x = BDSP_bin, weight = WGTP)) +
-  geom_bar(fill = "steelblue") +
-  coord_flip() +
-  labs(title = "Bedrooms", x = NULL, y = "Weighted count")
+# hh_ten <- ggplot(pums_hh, 
+#                  aes(x = TEN_label, weight = WGTP)) +
+#   geom_bar(fill = "steelblue") +
+#   coord_flip() +
+#   scale_x_discrete(
+#     labels = c("Owned with mortgage or loan (include home equity loans)" = "Owned with loan",
+#                "Occupied without payment of rent" = "Occ. w/o rent payment")
+#   ) +
+#   labs(title = "Tenure", x = NULL, y = "Weighted count")
+# 
+# hh_bld <- ggplot(pums_hh, aes(x = BLD_label, weight = WGTP)) +
+#   geom_bar(fill = "steelblue") +
+#   coord_flip() +
+#   labs(title = "Units in structure", x = NULL, y = "Weighted count") +
+#   scale_x_discrete(
+#     labels = c("Attached single-family (row house)" = "Attached single-family")
+#   )
+# 
+# hh_bds <- ggplot(pums_hh, aes(x = BDSP_bin, weight = WGTP)) +
+#   geom_bar(fill = "steelblue") +
+#   coord_flip() +
+#   labs(title = "Bedrooms", x = NULL, y = "Weighted count")
 
 
 p_ten <- ggplot(filter(pums, TYPEHUGQ == "1"), 
-                aes(x = TEN_label, weight = PWGTP)) +
+                aes(x = TEN_label, weight = PWGTP / 1000)) +
   geom_bar(fill = "steelblue") +
   coord_flip() +
   scale_x_discrete(
     labels = c("Owned with mortgage or loan (include home equity loans)" = "Owned with loan",
                "Occupied without payment of rent" = "Occ. w/o rent payment")
   ) +
-  labs(title = "Tenure", x = NULL, y = "Weighted count")
+  labs(title = "Tenure", x = NULL, y = "1,000s of residents")
 
 
-p_bld <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = BLD_label, weight = PWGTP)) +
+p_bld <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = BLD_label, weight = PWGTP / 1000)) +
   geom_bar(fill = "steelblue") +
   coord_flip() +
-  labs(title = "Units in structure", x = NULL, y = "Weighted count") +
+  labs(title = "Units in structure", x = NULL, y = "1,000s of residents") +
   scale_x_discrete(
     labels = c("Attached single-family (row house)" = "Attached single-family")
   )
 
-p_bds <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = BDSP_bin, weight = PWGTP)) +
+p_bds <- ggplot(filter(pums, TYPEHUGQ == "1"), aes(x = BDSP_bin, weight = PWGTP / 1000)) +
   geom_bar(fill = "steelblue") +
   coord_flip() +
-  labs(title = "Bedrooms", x = NULL, y = "Weighted count")
+  labs(title = "Bedrooms", x = NULL, y = "1,000s of residents")
 
-p_age <- p_age + scale_y_continuous(labels = comma)
+# p_age <- p_age + scale_y_continuous(labels = comma)
 p_ten <- p_ten + scale_y_continuous(labels = comma)
 p_bld <- p_bld + scale_y_continuous(labels = comma)
 p_bds <- p_bds + scale_y_continuous(labels = comma)
-hh_ten <- hh_ten + scale_y_continuous(labels = comma)
-hh_bld <- hh_bld + scale_y_continuous(labels = comma)
-hh_bds <- hh_bds + scale_y_continuous(labels = comma)
+# hh_ten <- hh_ten + scale_y_continuous(labels = comma)
+# hh_bld <- hh_bld + scale_y_continuous(labels = comma)
+# hh_bds <- hh_bds + scale_y_continuous(labels = comma)
 
-desc_chart <- p_age / (p_ten + p_bld + p_bds) + 
-  plot_annotation(caption = "Charts show people in households only (no group quarters residents).\nSource: 2024 5-year ACS PUMS.",
-                  title = "Descriptive statistics, 2024 5-year ACS",
+desc_chart <- p_ten + p_bld + p_bds +
+  plot_annotation(caption = "Charts show people in households only (no group quarters residents). Data weighted by person.\nSource: 2024 5-year ACS PUMS.",
+                  # title = "Descriptive statistics, 2024 5-year ACS",
                   theme = theme(
                     plot.caption = element_text(hjust = 0)
                     )
                   ) 
 
-ggsave("images/descriptive_chart.png", plot = desc_chart, width = 10, height = 9, dpi = 300)
+ggsave("images/descriptive_chart.png", plot = desc_chart, width = 10, height = 5, dpi = 300)
 
 
 # ____________________________________________
@@ -338,14 +340,16 @@ group_high_vals <- function(df, n_ppl_cap, n_brs_cap) {
 
 
 temp <-
-  ggplot(group_high_vals(df_all_long, 5, 5), aes(x = year, y = Freq)) +
+  ggplot(group_high_vals(df_all_long, 5, 5), aes(x = year, y = Freq/ 1000)) +
   geom_col(fill='steelblue') +
   facet_wrap(~ n_ppl_label, nrow = 1) +
   scale_y_continuous(labels = comma) +
   scale_fill_viridis_d(name = "Bedrooms") +
-  labs(x = "Household size, Year", y = "Number of households",
-       title = "DC households by size, 2012–2024") +
-  theme_minimal()
+  labs(x = "Household size, Year", y = "Thousands of households",
+       title = "DC households by size, 2012–2024",
+       caption="Source: 5-year ACS waves ending in 2012, 2019, and 2024") +
+  theme_minimal() +
+  theme(plot.caption = element_text(hjust = 0))
 
 ggsave("images/all_years_hhsize_chart.png", plot = temp, width = 10, height = 6, dpi = 300)
 
@@ -361,7 +365,7 @@ temp <-
     aes(label = if_else(pct > 0.05, percent(pct, accuracy = 1), "")),
     position = position_stack(vjust = 0.5), size = 2.5, color = "white"
   ) +
-  facet_wrap(~ n_ppl_label, nrow = 1) +
+  facet_wrap(~ n_ppl_label, nrow = 2) +
   scale_y_continuous(labels = percent) +
   scale_fill_viridis_d(name = "Bedrooms") +
   labs(x = NULL, y = "Share of households",
