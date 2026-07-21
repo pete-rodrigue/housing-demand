@@ -9,15 +9,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-In this memo:
+The purpose of this memo is to explore the concept of housing demand in DC. There are three parts:
 
-* Descriptive statistics about DC's current & historic population
+* Descriptive statistics about DC's historical & current population
 * Population extrapolations to 2030
 * Next steps
 
 ## DC's historical population
 
-Until 1950, DC's population grew steadily each decade. The expansion of the federal government during the Civil War and both World Wars led to population growth spurts. (The biggest decade-on-decade growth came during the 1850s and 60s, as the American bureaucracy was born, and formerly enslaved people fled neighboring southern states).
+Until 1950, DC's population grew steadily each decade. The expansion of the federal government during the Civil War and both World Wars led to population growth spurts. (The biggest decade-on-decade growth came during the 1850s and 60s, as the American bureaucracy was born, and formerly enslaved men and women fled neighboring southern states).
 
 After 1950, the District's population sank, as tens of thousands of mostly-white residents relocated to the suburbs. 
 
@@ -30,7 +30,7 @@ Starting around 2000, this decades-long downward trend reversed, although the CO
 
 ## Extrapolations to 2030
 
-The chart below shows several potential future population trends:
+A few potential futures are charted below:
 
 * The highest-growth scenario: Janeese Lewis-George's 72,000 housing unit goal achieved by 2030, and ~all of those units are filled.
 * A high-growth scenario: Population grows at average annual rate observed during 2012-2020 period.
@@ -48,13 +48,6 @@ The chart below shows the estimated number of each type of housing unit that are
 ![](images/projections_br_counts.png) 
 
 <br>
-
-### Filtering estimate
-
-* As of the 2018-2022 5-year ACS, there were ~14,700 DC renter households between 50% and 100% of AMI who were rent-burdened (paying more than 30% of their income in rent).
-* [Mast (2023)](https://research.upjohn.org/cgi/viewcontent.cgi?article=1012&context=up_policybriefs) finds that constructing 100 new market rate units leads 45-70 households in cheaper units to leave those units and start renting in the new units. This opens up those 45-70 cheaper units for more moderate-income people to rent. 
-* To create moving chains that would allow DC households at 50-100% AMI to move to cheaper units, you might need to build __21,000–33,000__ new market-rate units. 
-* Renters below 50% AMI wouldn't benefit as much, especially in the short run, because their incomes are low enough that more market-rate housing doesn't necessarily create moving-chain opportunities for them.
 
 ## Household size and dwelling unit statistics
 
@@ -151,6 +144,21 @@ They find DC has a 116,212 unit shortage. This is likely an over-estimate, becau
 
 This project estimates housing shortages by Census tract. I'm trying to get access. 
 
+
+### Filtering estimate
+
+Another way to think about housing demand is in terms of housing affordability. We can use estimates from [Mast (2023)](https://research.upjohn.org/cgi/viewcontent.cgi?article=1012&context=up_policybriefs) to think about the number of new units that would need to be constructed, in order to create moving opportunities for households below 100% of AMI, but above 50% of AMI. Here's some quick math:
+
+* As of the 2018-2022 5-year ACS, there were ~14,700 DC renter households between 50% and 100% of AMI who were rent-burdened (paying more than 30% of their income in rent).
+* Mast finds that constructing 100 new market rate units leads 45-70 households in cheaper units to leave those units and start renting in the new units. This opens up those 45-70 cheaper units for more moderate-income people to rent. 
+* To create moving chains that would allow DC households at 50-100% AMI to move to cheaper units, you might need to build __21,000–33,000__ new market-rate units. 
+* Renters below 50% AMI wouldn't benefit as much, especially in the short run, because their incomes are low enough that more market-rate housing doesn't necessarily create moving-chain opportunities for them.
+
+### KOB decomp
+
+tktk
+
+<br>
 
 ## Next steps
 

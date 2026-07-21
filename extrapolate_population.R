@@ -6,23 +6,23 @@ library(Hmisc); library(tidyverse); library(dplyr); library(zoo); library(ipumsr
 # years_to_fetch = seq(2012, 2024, 1)
 # 
 # for (y in years_to_fetch) {
-#   
+# 
 #   if (y < 2019) {
 #     grab_vars = c("RELP", "BDSP")
 #   } else {
 #     grab_vars = c("RELSHIPP", "BDSP")
 #   }
-#   
+# 
 #   temp <- get_pums(
 #     variables = grab_vars,
 #     state = "DC", survey = "acs5", year = y, key = CENSUS_KEY,
-#   ) %>% 
+#   ) %>%
 #     mutate(
 #       YEAR = y,
 #       SPORDER = as.character(SPORDER),
 #       BDSP    = as.character(BDSP)
 #     )
-#   
+# 
 #   if (y == min(years_to_fetch)) {
 #     pums_all <- temp
 #   } else {
@@ -34,8 +34,8 @@ library(Hmisc); library(tidyverse); library(dplyr); library(zoo); library(ipumsr
 
 
 
-# DC historic population data
-
+# # DC historic population data
+# 
 # extract_def <- define_extract_agg(
 #   collection = "nhgis",
 #   description = "DC total population, table A00, 1790-present",

@@ -331,8 +331,8 @@ group_high_vals <- function(df, n_ppl_cap, n_brs_cap) {
     group_by(year, n_ppl, n_brs) %>%
     summarise(
       Freq        = sum(Freq),
-      n_ppl_label = ifelse(n_ppl >= n_ppl_cap, paste0(n_ppl_cap, "+"), as.character(n_ppl)),
-      n_brs_label = ifelse(n_brs >= n_brs_cap, paste0(n_brs_cap, "+"), as.character(n_brs)),
+      n_ppl_label = ifelse(first(n_ppl) >= n_ppl_cap, paste0(n_ppl_cap, "+"), as.character(n_ppl)),
+      n_brs_label = ifelse(first(n_brs) >= n_brs_cap, paste0(n_brs_cap, "+"), as.character(n_brs)),
       .groups = "drop") %>%
     ungroup() %>%
     distinct()
@@ -340,7 +340,7 @@ group_high_vals <- function(df, n_ppl_cap, n_brs_cap) {
 
 
 temp <-
-  ggplot(group_high_vals(df_all_long, 5, 5), aes(x = year, y = Freq/ 1000)) +
+  ggplot(group_high_vals(df_all_long, 5, 5), aes(x = year, y = Freq / 1000)) +
   geom_col(fill='steelblue') +
   facet_wrap(~ n_ppl_label, nrow = 1) +
   scale_y_continuous(labels = comma) +

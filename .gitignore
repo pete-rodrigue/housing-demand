@@ -2,3 +2,4 @@ api_keys.R
 *.png
 *.rds
 .Rhistory
+*.zip
