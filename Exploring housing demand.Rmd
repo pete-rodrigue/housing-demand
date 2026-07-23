@@ -1,13 +1,25 @@
 ---
 title: "Exploring housing demand"
 date: "`r Sys.Date()`"
-output: html_document
+output: 
+ html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+<style type="text/css">
+div.main-container {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
 
 The purpose of this memo is to explore the concept of housing demand in DC. There are three parts:
 
@@ -15,7 +27,9 @@ The purpose of this memo is to explore the concept of housing demand in DC. Ther
 * Population extrapolations to 2030
 * Next steps
 
-## DC's historical population
+## Population
+
+### DC's historical population
 
 Until 1950, DC's population grew steadily each decade. The expansion of the federal government during the Civil War and both World Wars led to population growth spurts. (The biggest decade-on-decade growth came during the 1850s and 60s, as the American bureaucracy was born, and formerly enslaved men and women fled neighboring southern states).
 
@@ -28,7 +42,7 @@ Starting around 2000, this decades-long downward trend reversed, although the CO
 
 <br>
 
-## Extrapolations to 2030
+### Extrapolating to 2030
 
 A few potential futures are charted below:
 
@@ -49,7 +63,7 @@ The chart below shows the estimated number of each type of housing unit that are
 
 <br>
 
-## Household size and dwelling unit statistics
+## Household size and unit statistics
 
 
 The charts below show DC's demographic and housing characteristics in the 2024 5-year ACS, weighted by individual person. Group quarters residents are not shown (their inclusion doesn't change the charts much).
@@ -77,10 +91,12 @@ One-person households have grown slightly as a share of total households over ti
 <br>
 
 
-## Existing research
+## DC's housing shortage
+
+### Existing research
 
 
-### [COG](https://www.mwcog.org/documents/2019/09/10/the-future-of-housing-in-greater-washington/) (2019)
+#### [COG](https://www.mwcog.org/documents/2019/09/10/the-future-of-housing-in-greater-washington/) (2019)
 
 **DMV-wide, ~320,000** units needed to house the projected number of workers the COG expects the region will "need" in 2030.
 
@@ -100,7 +116,7 @@ Maybe they just needed a number they could all agree on. In which case: makes se
 Final note: the COG isn't maximizing welfare or productivity in this paper. They're not estimating how many people would like to live in the DMV, if given the opportunity. They're estimating the number of houses needed in the DMV to reduce in-commuting from surrounding counties.
 
   
-## [Freddie Mac](https://www.freddiemac.com/research/insight/20200227-the-housing-supply-shortage) (2020)
+#### [Freddie Mac](https://www.freddiemac.com/research/insight/20200227-the-housing-supply-shortage) (2020)
 
 DC **~34,000** units short
 
@@ -110,7 +126,7 @@ DC **~34,000** units short
 * Then they compare that demand to actual housing supply in the states and DC, accounting for interstate migration.
 * They find DC's housing shortage is almost 10% of its existing supply, or about 34,000 units.
 
-[AEI](https://heat.aeihousingcenter.org/toolkit/housing_shortage) (2025) 
+#### [AEI](https://heat.aeihousingcenter.org/toolkit/housing_shortage) (2025) 
 
 DC **32,149** units short
 
@@ -118,7 +134,7 @@ DC **32,149** units short
 * And they allocate out shortages to each state based on that state's $\frac{home price}{local income}$ ratio. All else equal, this will make DC's housing shortage look less severe, because DC, while having high rents, also has very high median income (even if many people in absolute terms live on very modest incomes in the District).
 * This gives them a housing shortage in DC of ~34,000 units.
 
-### [Up For Growth](https://upforgrowth.org/apply-the-vision/housing-underproduction-reports/) (2025)
+#### [Up For Growth](https://upforgrowth.org/apply-the-vision/housing-underproduction-reports/) (2025)
 
 DC **~16,600** units short
 
@@ -130,7 +146,7 @@ Where 1.05 represents the 5% target vacancy rate.
 
 This approach provides the lowest end estimate. A big reason why is because it doesn't account for equilibrium effects. The "missing households" term accounts for households in DC that are living in overcrowded conditions, forming 1 household when the inhabitants would rather be 3 households. But it doesn't account for households that just live in PG or MoCo counties, rather than DC, because DC rents are higher. This is obviously a large portion of the true demand to live in DC.
 
-### [Kevin Corinth & Hugo Dante](https://docs.iza.org/dp15447.pdf) (2022)
+#### [Kevin Corinth & Hugo Dante](https://docs.iza.org/dp15447.pdf) (2022)
 
 DC **~116,212** units short
 
@@ -140,12 +156,54 @@ They find DC has a 116,212 unit shortage. This is likely an over-estimate, becau
 
 (On the other hand, agglomeration effects might make a more populous DC more attractive to people looking to move. Which would increase demand.)
 
-### [Moodys](https://www.policymap.com/data/moodys-housing-shortfall?) (2025)
+#### [Moodys](https://www.policymap.com/data/moodys-housing-shortfall?) (2025)
 
 This project estimates housing shortages by Census tract. I'm trying to get access. 
 
 
-### Filtering estimate
+### Rent & affordability statistics
+
+#### Overall rent trends
+
+<!-- see plot_rents.R -->
+
+In the 2011-2015 ACS, DC had lower rents than adjacent counties. Since then, rents have jumped to levels more typical in Montgomery County.
+
+<br>
+
+![](images/nearby_county_rents.png)
+
+<br>
+
+Looking at all counties within the DC-MD-VA-WVA MSA, DC had above average rents in both periods. Note that renters at 50% of the MSA-wide median income were already rent burdened in 2011-2015.
+
+<br>
+
+![](images/county_rent_burden.png)
+
+<br>
+
+Again, DC had some of the largest percent increases in rent over this period.
+
+<br>
+
+
+![](images/county_rent_burden_change.png)
+
+
+![](images/county_rent_map.png)
+
+<br><br>
+
+Inflation-adjusted rents have risen across the District.
+
+
+
+![](images/rents_by_puma.png)
+
+<br>
+
+#### Filtering estimate
 
 Another way to think about housing demand is in terms of housing affordability. We can use estimates from [Mast (2023)](https://research.upjohn.org/cgi/viewcontent.cgi?article=1012&context=up_policybriefs) to think about the number of new units that would need to be constructed, in order to create moving opportunities for households below 100% of AMI, but above 50% of AMI. Here's some quick math:
 
@@ -154,7 +212,7 @@ Another way to think about housing demand is in terms of housing affordability. 
 * To create moving chains that would allow DC households at 50-100% AMI to move to cheaper units, you might need to build __21,000–33,000__ new market-rate units. 
 * Renters below 50% AMI wouldn't benefit as much, especially in the short run, because their incomes are low enough that more market-rate housing doesn't necessarily create moving-chain opportunities for them.
 
-### KOB decomp
+#### KOB decomp
 
 tktk
 

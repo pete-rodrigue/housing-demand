@@ -3,3 +3,4 @@ api_keys.R
 *.rds
 .Rhistory
 *.zip
+/data
